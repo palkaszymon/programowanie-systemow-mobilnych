@@ -7,4 +7,5 @@
   <p class="review-text">
     {{ review.review }}
   </p>
+  <img *ngIf="review.reviewPhoto" [src]="review.reviewPhoto" alt="Review photo" class="img-fluid mt-2 review-photo">
 </div>

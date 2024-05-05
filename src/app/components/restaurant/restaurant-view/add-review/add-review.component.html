@@ -18,7 +18,13 @@
     </div>
     <div class="form-group row">
       <div class="col-sm-12">
-        <button type="submit" class="btn btn-primary" [disabled]="reviewForm.invalid">Submit</button>
+        <label for="reviewPhoto">Review Photo:</label>
+        <input type="file" class="form-control" id="reviewPhoto"  formControlName="reviewPhoto" (change)="handleFileInput($event)">
+      </div>
+    </div>
+    <div class="form-group row pt-4">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary w-100" [disabled]="reviewForm.invalid">Submit</button>
       </div>
     </div>
   </form>

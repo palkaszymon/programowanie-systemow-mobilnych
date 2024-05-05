@@ -43,7 +43,7 @@ export class RestaurantService {
   }
 
   uploadFile(file: File, filePath: string) {
-    const task = this.photoStorage.upload(filePath, file);
+    const task = this.photoStorage.upload(filePath, file)
     return from(task).pipe(
       switchMap(() => this.photoStorage.ref(filePath).getDownloadURL())
     );
@@ -53,22 +53,14 @@ export class RestaurantService {
     await this.restaurantCollection.add(restaurant);
   }
 
-  async updateRestaurantRating(restaurantName: string): Promise<void> {
-    const snapshot = await this.restaurantCollection.ref.where('name', '==', restaurantName).get();
+  async updateRestaurantRating(review: Review): Promise<void> {
+    const snapshot = await this.restaurantCollection.ref.where('name', '==', review.restaurant).get();
     if (!snapshot.empty) {
       const restaurantDoc = snapshot.docs[0];
-
-      const reviewsSnapshot = await this.reviewCollection.ref.where('restaurant', '==', restaurantName).get();
-      let totalRating: number = 0;
-      reviewsSnapshot.docs.forEach(doc => {
-        const review = <Review>doc.data();
-        const numericRating = Number(review.rating);
-        totalRating += numericRating;
-      });
-      const numberOfRatings = reviewsSnapshot.size;
-      const averageRating = totalRating / numberOfRatings;
-
-      await this.restaurantCollection.doc(restaurantDoc.id).update({
+      const restaurant = <Restaurant> restaurantDoc.data();
+      let numberOfRatings = restaurant.numberOfRatings + 1;
+      let averageRating = ((restaurant.rating * restaurant.numberOfRatings) + Number(review.rating)) / (numberOfRatings);
+      return await this.restaurantCollection.doc(restaurantDoc.id).update({
         rating: Math.round(averageRating),
         numberOfRatings: numberOfRatings
       });
@@ -81,7 +73,9 @@ export class RestaurantService {
       let reviews: Review[] = [];
       const doc = snapshot.docs;
       doc.forEach(review => {
-        reviews.push(review.data() as Review);
+        let fetchedReview = review.data() as Review;
+        fetchedReview.reviewId = review.id;
+        reviews.push(fetchedReview);
       })
       return reviews;
     } else {
@@ -95,7 +89,9 @@ export class RestaurantService {
       let reviews: Review[] = [];
       const doc = snapshot.docs;
       doc.forEach(review => {
-        reviews.push(review.data() as Review);
+        let fetchedReview = review.data() as Review;
+        fetchedReview.reviewId = review.id;
+        reviews.push(fetchedReview);
       })
       return reviews;
     } else {
@@ -103,8 +99,17 @@ export class RestaurantService {
     }
   }
 
-  async submitReview(review: Review): Promise<void> {
-    await this.reviewCollection.add(review);
-    await this.updateRestaurantRating(review.restaurant);
+  async updateReviewPhotoLink(reviewId: string, reviewPhotoPath: string) {
+    await this.reviewCollection.doc(reviewId).update({
+      reviewPhoto: reviewPhotoPath
+    });
+  }
+
+  async submitReview(review: Review): Promise<string> {
+    return this.reviewCollection.add(review).then(reviewDocument => {
+      this.updateRestaurantRating(review);
+      return reviewDocument.id;
+      }
+    );
   }
 }

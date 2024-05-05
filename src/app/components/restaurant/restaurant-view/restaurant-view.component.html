@@ -13,11 +13,11 @@
 
   <div class="mt-4">
     <ng-container [ngSwitch]="activeView">
-      <div *ngSwitchCase="'photos'">
+      <div *ngSwitchCase="'photos'" class="carousel-container">
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item" *ngFor="let picture of restaurant.pictures; let isFirst = first" [class.active]="isFirst">
-              <img src="{{picture}}" class="d-block w-100" alt="Restaurant Photo">
+              <img src="{{picture}}" class="d-block w-100 img-responsive" alt="Restaurant Photo">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -40,7 +40,13 @@
       <div *ngSwitchCase="'reviews'">
         <button type="button" class="btn btn-primary w-100" (click)="goToAddReview()">Add Review</button>
         <div class="pt-4">
-          <app-review-cell *ngFor="let review of restaurantReviews" [review]="review" [cellType]="'restaurantView'"></app-review-cell>
+          <ng-container *ngIf="restaurantReviews; else noReviews">
+            <app-review-cell *ngFor="let review of restaurantReviews" [review]="review" [cellType]="'restaurantView'"></app-review-cell>
+          </ng-container>
+          <ng-template #noReviews>
+            <h3 class="text-center">No reviews added yet!</h3>
+          </ng-template>
+
         </div>
       </div>
     </ng-container>

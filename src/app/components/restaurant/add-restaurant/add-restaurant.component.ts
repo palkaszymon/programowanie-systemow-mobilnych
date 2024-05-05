@@ -19,7 +19,6 @@ export class AddRestaurantComponent {
   restaurantPhotoFiles!: File[];
   categories: string[] = categoriesArray;
   possibleAddresses: string[] = [];
-  selectedAddress: string = '';
 
   constructor(private fb: FormBuilder, private restaurantService: RestaurantService, private userDetailsService: UserDetailsService,
               private router: Router) {
