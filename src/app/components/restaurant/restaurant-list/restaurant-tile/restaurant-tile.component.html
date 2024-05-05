@@ -1,0 +1,13 @@
+<div class="card mb-4 shadow-sm" style="width: 100%; cursor: pointer" routerLink="/restaurant" [queryParams]="{ name: restaurant.name }">
+  <img ngSrc="{{ restaurant.logo }}" class="card-img-top" alt="Restaurant Logo" width="200" height="200" style="object-fit: cover;">
+  <div class="card-body">
+    <h5 class="card-title">{{ restaurant.name }}</h5>
+    <p class="card-text">
+      Category: {{ restaurant.category }}<br>
+      <ng-container *ngIf="restaurant.numberOfRatings; else noReviews">
+        Rating: {{ restaurant.rating }} ({{ restaurant.numberOfRatings }} reviews)
+      </ng-container>
+      <ng-template #noReviews>No reviews</ng-template>
+    </p>
+  </div>
+</div>

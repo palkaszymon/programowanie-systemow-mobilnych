@@ -1,0 +1,4 @@
+<h4 class="text-center">{{restaurant.address}}</h4>
+<google-map [center]="center" [zoom]="zoom" [options]="options" width="{{mapWidth}}" height="{{mapHeight}}">
+  <map-marker [position]="center" [label]="markerLabel" [options]="markerOptions"></map-marker>
+</google-map>

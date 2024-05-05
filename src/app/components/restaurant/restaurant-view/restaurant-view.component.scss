@@ -1,0 +1,10 @@
+.logo {
+  width: 100%;
+  max-width: 200px;
+}
+
+@media (max-width: 768px) {
+  .btn-group .btn {
+    font-size: 14px;
+  }
+}

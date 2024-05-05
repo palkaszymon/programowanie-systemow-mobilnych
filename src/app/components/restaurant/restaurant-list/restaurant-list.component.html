@@ -1,0 +1,21 @@
+<div class="container mt-3">
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="Search by name..." [(ngModel)]="searchTerm" (keyup)="filterRestaurants()">
+    </div>
+    <div class="col-md-4">
+      <select class="form-control" [(ngModel)]="selectedCategory" (change)="filterRestaurants()">
+        <option value="">All Categories</option>
+        <option *ngFor="let category of categories" value="{{category}}">{{category}}</option>
+      </select>
+    </div>
+    <div class="col">
+      <button class="btn btn-primary" (click)="sortByRating()">Sort by Rating</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let restaurant of filteredRestaurants">
+      <app-restaurant-tile [restaurant]="restaurant"></app-restaurant-tile>
+    </div>
+  </div>
+</div>

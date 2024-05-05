@@ -1,0 +1,47 @@
+<app-top-navbar [title]="'Add restaurant'"></app-top-navbar>
+<div class="container mt-5">
+  <form [formGroup]="restaurantForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="name">Restaurant Name:</label>
+        <input type="text" class="form-control" id="name" formControlName="name">
+        <div *ngIf="restaurantForm.controls['name'].invalid && restaurantForm.controls['name'].touched" class="invalid-feedback">
+          Please provide a restaurant name.
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="address">Address:</label>
+        <input type="text" class="form-control" id="address" formControlName="address" list="addressList" placeholder="Enter or select an address">
+        <datalist id="addressList">
+          <option *ngFor="let addr of possibleAddresses" [value]="addr"></option>
+        </datalist>
+        <button class="btn btn-outline-secondary mt-2" type="button" (click)="getLocation()">Use GPS</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-4 mb-3">
+        <label for="category">Category:</label>
+        <select class="form-control" id="category" formControlName="category">
+          <option *ngFor="let category of categories" value="{{category}}">{{category}}</option>
+        </select>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="description">Description:</label>
+        <textarea id="description" rows="4" cols="120" style="max-width:100%;" formControlName="description"></textarea>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="logo">Logo:</label>
+        <input type="file" class="form-control" id="logo" formControlName="logo" (change)="handleFileInput($event, 'logo')">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="menuPhoto">Menu Photo:</label>
+        <input type="file" class="form-control" id="menuPhoto"  formControlName="menuPhoto" (change)="handleFileInput($event, 'menu')">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="restaurantPhoto">Restaurant Photo:</label>
+        <input type="file" class="form-control" id="restaurantPhoto" formControlName="restaurantPhotos" (change)="handleFileInput($event, 'restaurant')" multiple>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!restaurantForm.valid">Submit</button>
+  </form>
+</div>

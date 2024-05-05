@@ -1,0 +1,20 @@
+.review-cell {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+
+  .review-header {
+    .rating-badge {
+      background-color: #007bff;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+    }
+  }
+
+  .review-text {
+    font-size: 14px;
+  }
+}

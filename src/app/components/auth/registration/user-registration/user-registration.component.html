@@ -1,0 +1,25 @@
+<app-top-navbar [title]="'Register'"></app-top-navbar>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form [formGroup]="registrationForm" (ngSubmit)="register()">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" formControlName="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" formControlName="password" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Full name:</label>
+          <input type="text" class="form-control" id="fullName" formControlName="fullName" required>
+        </div>
+        <div class="d-grid gap-2 pt-4">
+          <button type="submit" class="btn btn-primary btn-block">Register</button>
+          <button type="button" class="btn btn-primary btn-block" (click)="registerWithGoogle()">Register with Google</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<app-top-navbar [title]="'Add review'"></app-top-navbar>
+<div class="container mt-5">
+  <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+    <div class="form-group row">
+      <label for="rating" class="col-form-label col-sm-12">Rating:</label>
+      <div class="col-sm-12">
+        <select class="form-control" id="rating" formControlName="rating" required>
+          <option value="" disabled>Select rating</option>
+          <option *ngFor="let num of ratings" [value]="num">{{ num }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="review" class="col-form-label col-sm-12">Review:</label>
+      <div class="col-sm-12">
+        <textarea id="review" rows="4" cols="120" class="form-control" formControlName="review"></textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary" [disabled]="reviewForm.invalid">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>

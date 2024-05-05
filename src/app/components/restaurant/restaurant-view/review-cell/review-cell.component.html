@@ -1,0 +1,10 @@
+<div class="review-cell">
+  <div class="review-header d-flex justify-content-between align-items-center">
+    <h5 *ngIf="cellType==='restaurantView'">{{ review.authorName }}</h5>
+    <h5 *ngIf="cellType==='userView'">{{ review.restaurant }}</h5>
+    <span class="rating-badge">{{ review.rating }}/10</span>
+  </div>
+  <p class="review-text">
+    {{ review.review }}
+  </p>
+</div>

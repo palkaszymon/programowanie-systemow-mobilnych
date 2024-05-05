@@ -1,0 +1,16 @@
+<app-top-navbar [title]="'User Details'"></app-top-navbar>
+<div class="container mt-5">
+  <div class="form-group">
+    <label class="fw-bold">Name:</label>
+    <p class="form-control-static">{{currentUser?.fullName}}</p>
+  </div>
+  <form (ngSubmit)="changePassword()">
+    <div class="form-group pb-4">
+      <label for="password" class="fw-bold">Change Password:</label>
+      <input type="password" class="form-control" id="password" [(ngModel)]="newPassword" name="newPassword">
+    </div>
+    <button type="submit" class="btn btn-primary">Change Password</button>
+  </form>
+  <h3 class="mt-4">Your Reviews</h3>
+  <app-review-cell *ngFor="let review of userReviews" [review]="review" [cellType]="'userView'"></app-review-cell>
+</div>

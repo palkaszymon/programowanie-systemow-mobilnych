@@ -1,0 +1,10 @@
+<app-top-navbar [title]="'Account type'"></app-top-navbar>
+<div class="container mt-5 text-center">
+    <h2>Register as:</h2>
+    <div class="mt-3">
+      <button class="btn btn-primary btn-lg mx-2"
+              routerLink="/register/user" [queryParams]="{ type: 'restaurant' }">Restaurant</button>
+      <button class="btn btn-secondary btn-lg mx-2"
+              routerLink="/register/user" [queryParams]="{ type: 'user' }">User</button>
+    </div>
+</div>
